@@ -33,25 +33,19 @@ function chooseRandom(){
   return Math.floor(Math.random() * (photoCollection.length));
 }
 
-function randomPicOne(){
-  var picOne = document.getElementById("picOne");
-  var myPic = document.createElement('img');
-  picOne.appendChild(myPic);
-  var i = chooseRandom();
-  myPic.src = photoCollection[i].location;
-}
-
-function randomPicTwo(){
-  var picTwo = document.getElementById("picTwo");
-  var myPic = document.createElement('img');
-  picTwo.appendChild(myPic);
-  var i = chooseRandom();
-  myPic.src = photoCollection[i].location;
-}
-
 function displayRandom(){
-  randomPicOne();
-  randomPicTwo();
+  var picOne = document.getElementById("picOne");
+  var picTwo = document.getElementById("picTwo");
+
+  var i = chooseRandom();
+  var j = chooseRandom();
+  picOne.src = photoCollection[i].location;
+
+  while (i === j) {
+    j = chooseRandom();
+  }
+  picTwo.src = photoCollection[j].location;
+
 }
 
 displayRandom();
