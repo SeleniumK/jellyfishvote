@@ -11,18 +11,29 @@ header{
 }
 
 img{
-  width: 375px;
-  height: 375px;
+  width: 325px;
+  height: 325px;
+}
+
+section{
+  margin: auto;
+  padding-top: 35px;
 }
 
 .hidden{
   visibility: hidden;
 }
 
-.winner{
+.winnerOne{
   -webkit-transform: rotateZ(-30deg);
   -ms-transform: rotateZ(-30deg);
    transform: rotateZ(-30deg);
+}
+
+.winnerTwo{
+  -webkit-transform: rotateZ(30deg);
+  -ms-transform: rotateZ(30deg);
+   transform: rotateZ(30deg);
 }
 
 button{

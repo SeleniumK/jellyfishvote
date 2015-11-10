@@ -5,8 +5,6 @@ var sectionOne = document.getElementById("sectionOne");
 var sectionTwo = document.getElementById("sectionTwo");
 var tryAgain = document.getElementById("tryAgain");
 
-
-
 function Photo(name, location, info) {
   this.name = name;
   this.location = location;
@@ -74,20 +72,28 @@ var tracker = {
   },
 
   userVote: function(event){
+    var votesOne = document.getElementById("votesOne");
+    var votesTwo = document.getElementById("votesTwo");
+
     if(event.target.id == "picOne"){
       photoCollection[i].numVotes += 1;
-      picOne.setAttribute("class", "winner");
+      sectionOne.setAttribute("class", "winnerOne");
+      votesOne.textContent = "Votes: " + photoCollection[i].numVotes;
+
     }else if(event.target.id == "picTwo"){
       photoCollection[j].numVotes += 1;
-      picTwo.setAttribute("class", "winner");
+      sectionTwo.setAttribute("class", "winnerTwo");
+      votesTwo.textContent = "Votes: " + photoCollection[j].numVotes;
     }else {
       return;
     }
 
     tryAgain.removeAttribute("class", "hidden");
     tryAgain.addEventListener("click", function(){
-      picOne.removeAttribute("class", "winner");
-      picTwo.removeAttribute("class", "winner");
+      sectionOne.removeAttribute("class", "winnerOne");
+      sectionTwo.removeAttribute("class", "winnerTwo");
+      votesOne.textContent = "";
+      votesTwo.textContent = "";
       tryAgain.setAttribute("class", "hidden");
       display();
     });
@@ -100,7 +106,6 @@ function display(){
   tracker.displayName();
   tracker.displayLink();
 }
-
 
 display();
 choices.addEventListener("click", tracker.userVote);
