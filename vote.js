@@ -71,15 +71,6 @@ var tracker = {
     linkTwo.href = photoCollection[j].info;
   },
 
-  resetVote: function(){
-      sectionOne.removeAttribute("class", "winnerOne");
-      sectionTwo.removeAttribute("class", "winnerTwo");
-      votesOne.textContent = "";
-      votesTwo.textContent = "";
-      tryAgain.setAttribute("class", "hidden");
-      display();
-  },
-
   userVote: function(event){
     var votesOne = document.getElementById("votesOne");
     var votesTwo = document.getElementById("votesTwo");
@@ -98,7 +89,14 @@ var tracker = {
     }
 
     tryAgain.removeAttribute("class", "hidden");
-    tryAgain.addEventListener("click", resetVote);
+    tryAgain.addEventListener("click", function(){
+      sectionOne.removeAttribute("class", "winnerOne");
+      sectionTwo.removeAttribute("class", "winnerTwo");
+      votesOne.textContent = "";
+      votesTwo.textContent = "";
+      tryAgain.setAttribute("class", "hidden");
+      display();
+    });
   }
 };
 
