@@ -1,10 +1,13 @@
+var picOne = document.getElementById("picOne");
 var picTwo = document.getElementById("picTwo");
+var choices = document.getElementById("choices");
+var tryAgain = document.getElementById("tryAgain")
 
 function Photo(name, location, info) {
   this.name = name;
   this.location = location;
   this.info = info;
-  numVotes = 0;
+  this.numVotes = 0;
 }
 
 var photoCollection = [
@@ -29,25 +32,72 @@ var photoCollection = [
   new Photo("Venus Flytrap Anemone", "img/venus-flytrap-anemone.jpg", "https://en.wikipedia.org/wiki/Venus_flytrap_sea_anemone")
 ];
 
+var tracker = {
+  chooseRandom: function(){
+    return Math.floor(Math.random() * (photoCollection.length));
+  },
 
-function chooseRandom(){
-  return Math.floor(Math.random() * (photoCollection.length));
-}
+  i: null,
+  j: null,
 
-function displayRandom(){
-  var picOne = document.getElementById("picOne");
-  var picTwo = document.getElementById("picTwo");
+  displayRandomPic: function(){
+    i = this.chooseRandom();
+    j = this.chooseRandom();
 
-  var i = chooseRandom();
-  var j = chooseRandom();
-  picOne.src = photoCollection[i].location;
-  nameOne.textContent = photoCollection[i].name;
+    picOne.src = photoCollection[i].location;
 
-  while (i === j) {
-    j = chooseRandom();
+    while (i === j) {
+      j = this.chooseRandom();
+    }
+    picTwo.src = photoCollection[j].location
+    return i, j;
+  },
+
+  displayName: function(){
+    var nameOne = document.getElementById("nameOne");
+    var nameTwo = document.getElementById("nameTwo");
+
+    nameOne.textContent = photoCollection[i].name;
+    nameTwo.textContent = photoCollection[j].name;
+  },
+
+  displayLink: function(){
+    var linkOne = document.getElementById("infoOne");
+    var linkTwo = document.getElementById("infoTwo");
+
+    linkOne.href = photoCollection[i].info;
+    linkTwo.href = photoCollection[j].info;
+  },
+
+  userVoteOne: function(event){
+    photoCollection[i].numVotes += 1;
+  },
+
+  userVoteTwo: function(event){
+    photoCollection[j].numVotes += 1;
+
+  },
+  userVote: function(event){
+    if(event.target.id == "picOne"){
+      photoCollection[i].numVotes += 1;
+      picOne.setAttribute("class", "winner");
+    }if(event.target.id == "picTwo"){
+      photoCollection[j].numVotes += 1;
+      picTwo.setAttribute("class", "winner");
+    }
+
+    display();
   }
-  picTwo.src = photoCollection[j].location;
+};
 
+function display(){
+  tracker.displayRandomPic();
+  tracker.displayName();
+  tracker.displayLink();
 }
 
-displayRandom();
+
+display();
+choices.addEventListener("click", tracker.userVote);
+
+
