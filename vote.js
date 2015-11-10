@@ -77,9 +77,11 @@ var tracker = {
     if(event.target.id == "picOne"){
       photoCollection[i].numVotes += 1;
       picOne.setAttribute("class", "winner");
-    }if(event.target.id == "picTwo"){
+    }else if(event.target.id == "picTwo"){
       photoCollection[j].numVotes += 1;
       picTwo.setAttribute("class", "winner");
+    }else {
+      return;
     }
 
     tryAgain.removeAttribute("class", "hidden");
