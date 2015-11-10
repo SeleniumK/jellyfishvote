@@ -1,25 +1,11 @@
-header{
-  text-align: center;
+body{
+  background-color: #E9D5B8;
+}
+
+h1, h2, h3{
+  color: #174B66;
 }
 
 .container{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
+  background-color: #81B9BA ;
 }
-
-img{
-  width: 375px;
-  height: 375px;
-}
-
-
-.winner {
-  background-color: lightblue;
-}
-
-.hidden{
-  display: none;
-}
-

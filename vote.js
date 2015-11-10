@@ -76,16 +76,16 @@ var tracker = {
   userVote: function(event){
     if(event.target.id == "picOne"){
       photoCollection[i].numVotes += 1;
-      sectionOne.setAttribute("class", "winner");
+      picOne.setAttribute("class", "winner");
     }if(event.target.id == "picTwo"){
       photoCollection[j].numVotes += 1;
-      sectionTwo.setAttribute("class", "winner");
+      picTwo.setAttribute("class", "winner");
     }
 
     tryAgain.removeAttribute("class", "hidden");
     tryAgain.addEventListener("click", function(){
-      sectionOne.removeAttribute("class", "winner");
-      sectionTwo.removeAttribute("class", "winner");
+      picOne.removeAttribute("class", "winner");
+      picTwo.removeAttribute("class", "winner");
       tryAgain.setAttribute("class", "hidden");
       display();
     });
