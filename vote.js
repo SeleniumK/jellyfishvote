@@ -29,6 +29,7 @@ var photoCollection = [
   new Photo("Venus Flytrap Anemone", "img/venus-flytrap-anemone.jpg", "https://en.wikipedia.org/wiki/Venus_flytrap_sea_anemone")
 ];
 
+
 function chooseRandom(){
   return Math.floor(Math.random() * (photoCollection.length));
 }
@@ -40,6 +41,7 @@ function displayRandom(){
   var i = chooseRandom();
   var j = chooseRandom();
   picOne.src = photoCollection[i].location;
+  nameOne.textContent = photoCollection[i].name;
 
   while (i === j) {
     j = chooseRandom();
