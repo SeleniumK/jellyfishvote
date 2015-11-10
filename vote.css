@@ -1,0 +1,47 @@
+body{
+  background-color: #010938;
+}
+
+.wrapper{
+  background-color: #E9D5B8;
+  width: 85%;
+  margin: auto;
+}
+
+h1, h2, h3{
+  color: #184B66;
+  text-align: center;
+  padding-top: 20px;
+}
+
+a{
+  color: #010938;
+  font-size: 24px;
+}
+
+header{
+  border: 2px solid #4D8BBB;
+  margin-bottom: 2px;
+  padding-bottom: 2px;
+}
+
+#mainHeader {
+  font-size: 40px;
+  margin-bottom: 0%;
+  padding-bottom: 0%;
+}
+
+header h2{
+  top
+  margin-top: 0%;
+  padding-top: 0%;
+}
+
+#choices{
+  padding-top: 2px;
+}
+
+button{
+  background-color: #2F9C7C;
+  color: #184B66;
+}
