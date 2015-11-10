@@ -14,3 +14,12 @@ img{
   height: 375px;
 }
 
+
+.winner {
+  background-color: lightblue;
+}
+
+.hidden{
+  display: none;
+}
+

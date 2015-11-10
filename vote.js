@@ -1,7 +1,11 @@
 var picOne = document.getElementById("picOne");
 var picTwo = document.getElementById("picTwo");
 var choices = document.getElementById("choices");
-var tryAgain = document.getElementById("tryAgain")
+var sectionOne = document.getElementById("sectionOne");
+var sectionTwo = document.getElementById("sectionTwo");
+var tryAgain = document.getElementById("tryAgain");
+
+
 
 function Photo(name, location, info) {
   this.name = name;
@@ -69,24 +73,23 @@ var tracker = {
     linkTwo.href = photoCollection[j].info;
   },
 
-  userVoteOne: function(event){
-    photoCollection[i].numVotes += 1;
-  },
-
-  userVoteTwo: function(event){
-    photoCollection[j].numVotes += 1;
-
-  },
   userVote: function(event){
     if(event.target.id == "picOne"){
       photoCollection[i].numVotes += 1;
-      picOne.setAttribute("class", "winner");
+      sectionOne.setAttribute("class", "winner");
     }if(event.target.id == "picTwo"){
       photoCollection[j].numVotes += 1;
-      picTwo.setAttribute("class", "winner");
+      sectionTwo.setAttribute("class", "winner");
     }
 
-    display();
+    tryAgain.removeAttribute("class", "hidden");
+    tryAgain.addEventListener("click", function(){
+      sectionOne.removeAttribute("class", "winner");
+      sectionTwo.removeAttribute("class", "winner");
+      tryAgain.setAttribute("class", "hidden");
+      display();
+    });
+
   }
 };
 
