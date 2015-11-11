@@ -11,8 +11,8 @@ header{
 }
 
 img{
-  width: 325px;
-  height: 325px;
+  width: 300px;
+  height: 300px;
 }
 
 section{
@@ -45,7 +45,24 @@ button{
   font-size: 24px;
 }
 
+#voteContainer{
+  margin-top: 5%;
+  padding-top: 5%;
+}
+
 footer{
   text-align: center;
 }
+
+
+@media (max-width: 780px){
+  .container{
+    flex-direction: column;
+  }
+
+  button{
+    align-self: center;
+  }
+}
+
 

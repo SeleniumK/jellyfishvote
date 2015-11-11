@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Democra-Sea: Vote for your favorite strange Sea-Creatures</title>
+  <script src="chart.js"></script>
   <link rel="stylesheet" href="votelayout.css">
   <link rel="stylesheet" href="vote.css">
 </head>
@@ -25,8 +26,9 @@
       <h3 id="votesTwo"></h3>
     </section>
   </div>
-  <section class="chart">
-  </section>
+  <div class="container" id="voteContainer">
+    <canvas id="voteChart" width="900" height="175"></canvas>
+  </div>
   <footer>
     <h3>Liked these critters? Wanna keep them around?</h3>
     <a href="http://marinebio.org/oceans/conservation/organizations/"><h4>Click here to learn more</h4></a>
