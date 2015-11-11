@@ -45,3 +45,11 @@ button{
   background-color: #2F9C7C;
   color: #184B66;
 }
+
+.voteContainer{
+  margin-top: 10%;
+}
+
+#voteChart{
+  width: 100%;
+}

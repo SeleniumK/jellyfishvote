@@ -4,6 +4,7 @@ var choices = document.getElementById("choices");
 var sectionOne = document.getElementById("sectionOne");
 var sectionTwo = document.getElementById("sectionTwo");
 var tryAgain = document.getElementById("tryAgain");
+
 var ctx = document.getElementById("voteChart").getContext("2d");
 
 
@@ -143,5 +144,10 @@ display();
 choices.addEventListener("click", tracker.userVote);
 
 
-var myBarChart = new Chart(ctx).Bar(data);
+var myBarChart = new Chart(ctx).Bar(data, {
+  scaleShowGridLines: false,
+  scaleShowHorizontalLines: false,
+  scaleShowVerticalLines: false,
+  scaleShowLabels: false
+});
 
