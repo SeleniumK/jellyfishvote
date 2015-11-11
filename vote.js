@@ -52,7 +52,7 @@ var tracker = {
       j = this.chooseRandom();
     }
     picTwo.src = photoCollection[j].location
-    return i, j;
+    // return i, j;
   },
 
   displayName: function(){
@@ -79,11 +79,14 @@ var tracker = {
       photoCollection[i].numVotes += 1;
       sectionOne.setAttribute("class", "winnerOne");
       votesOne.textContent = "Votes: " + photoCollection[i].numVotes;
+      myChart.addData(photoCollection[i].numVotes, photoCollection[i].name)
 
     }else if(event.target.id == "picTwo"){
       photoCollection[j].numVotes += 1;
       sectionTwo.setAttribute("class", "winnerTwo");
       votesTwo.textContent = "Votes: " + photoCollection[j].numVotes;
+      myChart.addData(photoCollection[j].numVotes, photoCollection[j].name)
+
     }else {
       return;
     }
@@ -109,4 +112,18 @@ function display(){
 display();
 choices.addEventListener("click", tracker.userVote);
 
+var context = document.getElementById("voterData").getContext('2d');
+var data ={
+  labels: [],
+  datasets: [
+    {
+      fillColor:,
+      strokeColor:,
+      highlightFill: ,
+      highlightStroke:,
+      data: []
+    }
+  ]
+};
 
+var myChart = new Chart(context).Bar(data);
