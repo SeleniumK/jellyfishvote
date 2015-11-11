@@ -4,9 +4,7 @@ var choices = document.getElementById("choices");
 var sectionOne = document.getElementById("sectionOne");
 var sectionTwo = document.getElementById("sectionTwo");
 var tryAgain = document.getElementById("tryAgain");
-
 var ctx = document.getElementById("voteChart").getContext("2d");
-
 
 var data = {
   labels: [],
@@ -22,13 +20,11 @@ var data = {
   ]
 };
 
-
 function Photo(name, location, info) {
   this.name = name;
   this.location = location;
   this.info = info;
   this.numVotes = 0;
-
   data.labels.push(this.name);
   data.datasets[0].data.push(0);
 }
@@ -63,7 +59,7 @@ var tracker = {
   i: null,
   j: null,
 
-  displayRandomPic: function(){
+  displayPic: function(){
     i = this.chooseRandom();
     j = this.chooseRandom();
 
@@ -72,8 +68,8 @@ var tracker = {
     while (i === j) {
       j = this.chooseRandom();
     }
+
     picTwo.src = photoCollection[j].location
-    return i, j;
   },
 
   displayName: function(){
@@ -95,23 +91,28 @@ var tracker = {
   userVote: function(event){
     var votesOne = document.getElementById("votesOne");
     var votesTwo = document.getElementById("votesTwo");
+    function resetData(){
+
+    }
 
     if(event.target.id == "picOne"){
       photoCollection[i].numVotes += 1;
 
-      data.datasets[0].data[i] = photoCollection[i].numVotes;
-      myBarChart.datasets[0].bars[i].value = photoCollection[i].numVotes;
-
       sectionOne.setAttribute("class", "winnerOne");
       votesOne.textContent = "Votes: " + photoCollection[i].numVotes;
 
+      data.datasets[0].data[i] = photoCollection[i].numVotes;
+      myBarChart.datasets[0].bars[i].value = photoCollection[i].numVotes;
+
     }else if(event.target.id == "picTwo"){
       photoCollection[j].numVotes += 1;
+
       sectionTwo.setAttribute("class", "winnerTwo");
       votesTwo.textContent = "Votes: " + photoCollection[j].numVotes;
 
       data.datasets[0].data[j] = photoCollection[j].numVotes;
       myBarChart.datasets[0].bars[j].value = photoCollection[j].numVotes;
+
     }else {
       return;
     }
@@ -119,6 +120,7 @@ var tracker = {
     myBarChart.update();
 
     tryAgain.removeAttribute("class", "hidden");
+
     tryAgain.addEventListener("click", function(){
       sectionOne.removeAttribute("class", "winnerOne");
       sectionTwo.removeAttribute("class", "winnerTwo");
@@ -131,11 +133,8 @@ var tracker = {
   }
 };
 
-
-
-
 function display(){
-  tracker.displayRandomPic();
+  tracker.displayPic();
   tracker.displayName();
   tracker.displayLink();
 }
@@ -143,11 +142,7 @@ function display(){
 display();
 choices.addEventListener("click", tracker.userVote);
 
-
 var myBarChart = new Chart(ctx).Bar(data, {
-  scaleShowGridLines: false,
-  scaleShowHorizontalLines: false,
-  scaleShowVerticalLines: false,
-  scaleShowLabels: false
+  showScale: false,
 });
 
