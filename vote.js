@@ -4,12 +4,32 @@ var choices = document.getElementById("choices");
 var sectionOne = document.getElementById("sectionOne");
 var sectionTwo = document.getElementById("sectionTwo");
 var tryAgain = document.getElementById("tryAgain");
+var ctx = document.getElementById("voteChart").getContext("2d");
+
+
+var data = {
+  labels: [],
+  datasets: [
+    {
+      label: "Critters",
+      fillColor: "rgba(67, 17, 85, .5)",
+      strokeColor: "rgba(67, 17, 85, .5)",
+      highlightFill: "rgba(123, 73, 141, .5)",
+      highlightStroke: "rgba(123, 73, 141, .5)",
+      data: []
+    }
+  ]
+};
+
 
 function Photo(name, location, info) {
   this.name = name;
   this.location = location;
   this.info = info;
   this.numVotes = 0;
+
+  data.labels.push(this.name);
+  data.datasets[0].data.push(0);
 }
 
 var photoCollection = [
@@ -77,6 +97,10 @@ var tracker = {
 
     if(event.target.id == "picOne"){
       photoCollection[i].numVotes += 1;
+
+      data.datasets[0].data[i] = photoCollection[i].numVotes;
+      myBarChart.datasets[0].bars[i].value = photoCollection[i].numVotes;
+
       sectionOne.setAttribute("class", "winnerOne");
       votesOne.textContent = "Votes: " + photoCollection[i].numVotes;
 
@@ -84,9 +108,14 @@ var tracker = {
       photoCollection[j].numVotes += 1;
       sectionTwo.setAttribute("class", "winnerTwo");
       votesTwo.textContent = "Votes: " + photoCollection[j].numVotes;
+
+      data.datasets[0].data[j] = photoCollection[j].numVotes;
+      myBarChart.datasets[0].bars[j].value = photoCollection[j].numVotes;
     }else {
       return;
     }
+
+    myBarChart.update();
 
     tryAgain.removeAttribute("class", "hidden");
     tryAgain.addEventListener("click", function(){
@@ -95,10 +124,14 @@ var tracker = {
       votesOne.textContent = "";
       votesTwo.textContent = "";
       tryAgain.setAttribute("class", "hidden");
+
       display();
     });
   }
 };
+
+
+
 
 function display(){
   tracker.displayRandomPic();
@@ -109,4 +142,6 @@ function display(){
 display();
 choices.addEventListener("click", tracker.userVote);
 
+
+var myBarChart = new Chart(ctx).Bar(data);
 
