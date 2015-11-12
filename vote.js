@@ -6,7 +6,6 @@ var sectionTwo = document.getElementById('sectionTwo');
 var tryAgain = document.getElementById('tryAgain');
 var ctx = document.getElementById('voteChart').getContext('2d');
 
-
 var data = {
   labels: [],
   datasets: [
@@ -20,13 +19,6 @@ var data = {
     }
   ]
 };
-
-function checkLocal(){
-  if(localStorage.chartData) {
-    data.datasets[0].data = JSON.parse(localStorage.chartData);
-  }
-}
-checkLocal();
 
 function Photo(name, location, info) {
   this.name = name;
@@ -58,6 +50,12 @@ var photoCollection = [
   new Photo('Vampire Squid', 'img/vampire-squid.jpg', 'https://en.wikipedia.org/wiki/Vampire_squid'),
   new Photo('Venus Flytrap Anemone', 'img/venus-flytrap-anemone.jpg', 'https://en.wikipedia.org/wiki/Venus_flytrap_sea_anemone')
 ];
+
+function checkLocal(){
+  if(localStorage.chartData) {
+    photoCollection = JSON.parse(localStorage.chartData);
+  }
+}
 
 var tracker = {
   chooseRandom: function(){
@@ -122,8 +120,6 @@ var tracker = {
       return;
     }
 
-
-
     choices.removeEventListener('click', tracker.userVote);
     myBarChart.update();
 
@@ -140,8 +136,7 @@ function tryAgainClick(){
   tryAgain.setAttribute('class', 'hidden');
   choices.addEventListener('click', tracker.userVote);
 
-
-  var jData = JSON.stringify(data.datasets[0].data);
+  var jData = JSON.stringify(photoCollection);
   localStorage.setItem('chartData', jData);
 
   display();
@@ -153,6 +148,7 @@ function display(){
   tracker.displayLink();
 }
 
+checkLocal();
 display();
 choices.addEventListener('click', tracker.userVote);
 
