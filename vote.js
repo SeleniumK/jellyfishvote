@@ -91,11 +91,9 @@ var tracker = {
   userVote: function(event){
     var votesOne = document.getElementById("votesOne");
     var votesTwo = document.getElementById("votesTwo");
-    function resetData(){
-
-    }
 
     if(event.target.id == "picOne"){
+      choices.removeEventListener("click", tracker.userVote);
       photoCollection[i].numVotes += 1;
 
       sectionOne.setAttribute("class", "winnerOne");
@@ -105,6 +103,7 @@ var tracker = {
       myBarChart.datasets[0].bars[i].value = photoCollection[i].numVotes;
 
     }else if(event.target.id == "picTwo"){
+      choices.removeEventListener("click", tracker.userVote);
       photoCollection[j].numVotes += 1;
 
       sectionTwo.setAttribute("class", "winnerTwo");
@@ -127,6 +126,7 @@ var tracker = {
       votesOne.textContent = "";
       votesTwo.textContent = "";
       tryAgain.setAttribute("class", "hidden");
+      choices.addEventListener("click", tracker.userVote);
 
       display();
     });
