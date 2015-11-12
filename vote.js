@@ -6,6 +6,7 @@ var sectionTwo = document.getElementById('sectionTwo');
 var tryAgain = document.getElementById('tryAgain');
 var ctx = document.getElementById('voteChart').getContext('2d');
 
+
 var data = {
   labels: [],
   datasets: [
@@ -22,10 +23,10 @@ var data = {
 
 function checkLocal(){
   if(localStorage.chartData) {
-    var savedData = localStorage.getItem('chartData');
-    data.datasets[0].data = JSON.parse(savedData);
+    data.datasets[0].data = JSON.parse(localStorage.chartData);
   }
 }
+checkLocal();
 
 function Photo(name, location, info) {
   this.name = name;
@@ -108,7 +109,6 @@ var tracker = {
       data.datasets[0].data[i] = photoCollection[i].numVotes;
       myBarChart.datasets[0].bars[i].value = photoCollection[i].numVotes;
 
-
     }else if(event.target.id == 'picTwo'){
       photoCollection[j].numVotes += 1;
 
@@ -122,7 +122,7 @@ var tracker = {
       return;
     }
 
-    localStorage.setItem('chartData', JSON.stringify(data.datasets[0].data));
+
 
     choices.removeEventListener('click', tracker.userVote);
     myBarChart.update();
@@ -140,6 +140,10 @@ function tryAgainClick(){
   tryAgain.setAttribute('class', 'hidden');
   choices.addEventListener('click', tracker.userVote);
 
+
+  var jData = JSON.stringify(data.datasets[0].data);
+  localStorage.setItem('chartData', jData);
+
   display();
 }
 
@@ -149,8 +153,6 @@ function display(){
   tracker.displayLink();
 }
 
-
-checkLocal();
 display();
 choices.addEventListener('click', tracker.userVote);
 
