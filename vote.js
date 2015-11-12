@@ -116,21 +116,21 @@ var tracker = {
 
     choices.removeEventListener("click", tracker.userVote);
     myBarChart.update();
-
     tryAgain.removeAttribute("class", "hidden");
-
-    tryAgain.addEventListener("click", function(){
-      sectionOne.removeAttribute("class", "winnerOne");
-      sectionTwo.removeAttribute("class", "winnerTwo");
-      votesOne.textContent = "";
-      votesTwo.textContent = "";
-      tryAgain.setAttribute("class", "hidden");
-      choices.addEventListener("click", tracker.userVote);
-
-      display();
-    });
+    tryAgain.addEventListener("click", tryAgainClick);
   }
 };
+
+function tryAgainClick(){
+  sectionOne.removeAttribute("class", "winnerOne");
+  sectionTwo.removeAttribute("class", "winnerTwo");
+  votesOne.textContent = "";
+  votesTwo.textContent = "";
+  tryAgain.setAttribute("class", "hidden");
+  choices.addEventListener("click", tracker.userVote);
+
+  display();
+}
 
 function display(){
   tracker.displayPic();
