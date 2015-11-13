@@ -24,8 +24,8 @@ function Photo(name, location, info) {
   this.name = name;
   this.location = location;
   this.info = info;
-  this.numVotes = 0;
   data.labels.push(this.name);
+  this.numVotes = 0;
   data.datasets[0].data.push(0);
 }
 
@@ -51,10 +51,9 @@ var photoCollection = [
   new Photo('Venus Flytrap Anemone', 'img/venus-flytrap-anemone.jpg', 'https://en.wikipedia.org/wiki/Venus_flytrap_sea_anemone')
 ];
 
-function checkLocal(){
-  if(localStorage.chartData) {
-    photoCollection = JSON.parse(localStorage.chartData);
-  }
+function storeData(){
+  var jData = JSON.stringify(photoCollection);
+  localStorage.setItem('chartData', jData);
 }
 
 var tracker = {
@@ -101,20 +100,29 @@ var tracker = {
     if(event.target.id == 'picOne'){
       photoCollection[i].numVotes += 1;
 
-      sectionOne.setAttribute('class', 'winnerOne');
-      votesOne.textContent = 'Votes: ' + photoCollection[i].numVotes;
+      storeData();
+      var getPhoto = localStorage.getItem('chartData');
+      var getPhotoParsed = JSON.parse(getPhoto);
 
-      data.datasets[0].data[i] = photoCollection[i].numVotes;
-      myBarChart.datasets[0].bars[i].value = photoCollection[i].numVotes;
+      sectionOne.setAttribute('class', 'winnerOne');
+      votesOne.textContent = 'Votes: ' + getPhotoParsed[i].numVotes;
+
+      data.datasets[0].data[i] = getPhotoParsed[i].numVotes;
+      myBarChart.datasets[0].bars[i].value = getPhotoParsed[i].numVotes;
+
 
     }else if(event.target.id == 'picTwo'){
       photoCollection[j].numVotes += 1;
 
-      sectionTwo.setAttribute('class', 'winnerTwo');
-      votesTwo.textContent = 'Votes: ' + photoCollection[j].numVotes;
+      storeData();
+      var getPhoto = localStorage.getItem('chartData');
+      var getPhotoParsed = JSON.parse(getPhoto);
 
-      data.datasets[0].data[j] = photoCollection[j].numVotes;
-      myBarChart.datasets[0].bars[j].value = photoCollection[j].numVotes;
+      sectionTwo.setAttribute('class', 'winnerTwo');
+      votesTwo.textContent = 'Votes: ' + getPhotoParsed[j].numVotes;
+
+      data.datasets[0].data[j] = getPhotoParsed[j].numVotes;
+      myBarChart.datasets[0].bars[j].value = getPhotoParsed[j].numVotes;
 
     }else {
       return;
@@ -136,9 +144,6 @@ function tryAgainClick(){
   tryAgain.setAttribute('class', 'hidden');
   choices.addEventListener('click', tracker.userVote);
 
-  var jData = JSON.stringify(photoCollection);
-  localStorage.setItem('chartData', jData);
-
   display();
 }
 
@@ -148,11 +153,29 @@ function display(){
   tracker.displayLink();
 }
 
-checkLocal();
+if(localStorage.chartData){
+  var getPhoto = localStorage.getItem('chartData');
+  var getPhotoParsed = JSON.parse(getPhoto);
+
+  for(var i = 0; i < getPhotoParsed.length; i++){
+    data.datasets[0].data[i] = getPhotoParsed[i].numVotes;
+
+    var myBarChart = new Chart(ctx).Bar(data, {
+      showScale: false,
+    });
+
+    photoCollection[i].numVotes = getPhotoParsed[i].numVotes;
+  }
+  } else{
+      for(var i = 0; i < photoCollection.length; i++){
+        photoCollection[i].numVotes = 0;
+      }
+      var myBarChart = new Chart(ctx).Bar(data, {
+        showScale: false,
+      });
+   }
+
 display();
 choices.addEventListener('click', tracker.userVote);
 
-var myBarChart = new Chart(ctx).Bar(data, {
-  showScale: false,
-});
 
