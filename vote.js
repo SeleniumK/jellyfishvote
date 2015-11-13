@@ -25,7 +25,7 @@ function Photo(name, location, info) {
   this.location = location;
   this.info = info;
   data.labels.push(this.name);
-  // this.numVotes = 0;
+  this.numVotes = 0;
   data.datasets[0].data.push(0);
 }
 
