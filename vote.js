@@ -5,6 +5,7 @@ var sectionOne = document.getElementById('sectionOne');
 var sectionTwo = document.getElementById('sectionTwo');
 var tryAgain = document.getElementById('tryAgain');
 var ctx = document.getElementById('voteChart').getContext('2d');
+
 var data = {
   labels: [],
   datasets: [
@@ -64,31 +65,32 @@ var tracker = {
   j: null,
 
   displayPic: function(){
-    this.i = this.chooseRandom();
-    this.j = this.chooseRandom();
+    i = this.chooseRandom();
+    j = this.chooseRandom();
 
-    picOne.src = photoCollection[this.i].location;
+    picOne.src = photoCollection[i].location;
 
-    while (this.i === this.j) {
+    while (i === j) {
       j = this.chooseRandom();
     }
-    picTwo.src = photoCollection[this.j].location
+
+    picTwo.src = photoCollection[j].location
   },
 
   displayName: function(){
     var nameOne = document.getElementById('nameOne');
     var nameTwo = document.getElementById('nameTwo');
 
-    nameOne.textContent = photoCollection[this.i].name;
-    nameTwo.textContent = photoCollection[this.j].name;
+    nameOne.textContent = photoCollection[i].name;
+    nameTwo.textContent = photoCollection[j].name;
   },
 
   displayLink: function(){
     var linkOne = document.getElementById('infoOne');
     var linkTwo = document.getElementById('infoTwo');
 
-    linkOne.href = photoCollection[this.i].info;
-    linkTwo.href = photoCollection[this.j].info;
+    linkOne.href = photoCollection[i].info;
+    linkTwo.href = photoCollection[j].info;
   },
 
   userVote: function(event){
@@ -96,30 +98,31 @@ var tracker = {
     var votesTwo = document.getElementById('votesTwo');
 
     if(event.target.id == 'picOne'){
-      photoCollection[this.i].numVotes += 1;
+      photoCollection[i].numVotes += 1;
 
       storeData();
       var getPhoto = localStorage.getItem('chartData');
       var getPhotoParsed = JSON.parse(getPhoto);
 
       sectionOne.setAttribute('class', 'winnerOne');
-      votesOne.textContent = 'Votes: ' + getPhotoParsed[this.i].numVotes;
+      votesOne.textContent = 'Votes: ' + getPhotoParsed[i].numVotes;
 
-      data.datasets[0].data[this.i] = getPhotoParsed[this.i].numVotes;
-      myBarChart.datasets[0].bars[this.i].value = getPhotoParsed[this.i].numVotes;
+      data.datasets[0].data[i] = getPhotoParsed[i].numVotes;
+      myBarChart.datasets[0].bars[i].value = getPhotoParsed[i].numVotes;
+
 
     }else if(event.target.id == 'picTwo'){
-      photoCollection[this.j].numVotes += 1;
+      photoCollection[j].numVotes += 1;
 
       storeData();
       var getPhoto = localStorage.getItem('chartData');
       var getPhotoParsed = JSON.parse(getPhoto);
 
       sectionTwo.setAttribute('class', 'winnerTwo');
-      votesTwo.textContent = 'Votes: ' + getPhotoParsed[this.j].numVotes;
+      votesTwo.textContent = 'Votes: ' + getPhotoParsed[j].numVotes;
 
-      data.datasets[0].data[this.j] = getPhotoParsed[this.j].numVotes;
-      myBarChart.datasets[0].bars[j].value = getPhotoParsed[this.j].numVotes;
+      data.datasets[0].data[j] = getPhotoParsed[j].numVotes;
+      myBarChart.datasets[0].bars[j].value = getPhotoParsed[j].numVotes;
 
     }else {
       return;
@@ -156,21 +159,22 @@ if(localStorage.chartData){
 
   for(var i = 0; i < getPhotoParsed.length; i++){
     data.datasets[0].data[i] = getPhotoParsed[i].numVotes;
+
     var myBarChart = new Chart(ctx).Bar(data, {
       showScale: false,
     });
+
     photoCollection[i].numVotes = getPhotoParsed[i].numVotes;
   }
- } else{
-   for(var i = 0; i < photoCollection.length; i++){
-     photoCollection[i].numVotes = 0;
-    }
-   var myBarChart = new Chart(ctx).Bar(data, {
-      showScale: false,
-   });
-}
+  } else{
+      for(var i = 0; i < photoCollection.length; i++){
+        photoCollection[i].numVotes = 0;
+      }
+      var myBarChart = new Chart(ctx).Bar(data, {
+        showScale: false,
+      });
+   }
 
 display();
 choices.addEventListener('click', tracker.userVote);
-
 
